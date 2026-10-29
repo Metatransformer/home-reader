@@ -1,0 +1,24 @@
+{
+  "name": "home-reader",
+  "version": "1.0.0",
+  "description": "Turn source text into local Ollama listening scripts and macOS narrated audio.",
+  "private": true,
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Metatransformer/home-reader.git"
+  },
+  "homepage": "https://metatransformer.com/open-source",
+  "bugs": {
+    "url": "https://github.com/Metatransformer/home-reader/issues"
+  },
+  "type": "module",
+  "scripts": {
+    "start": "node server.mjs",
+    "check": "node --check server.mjs && node --check reader.mjs && node --check cli.mjs && node --check public/app.js",
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

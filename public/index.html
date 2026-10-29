@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light">
+    <title>Home Reader</title>
+    <link rel="stylesheet" href="/style.css">
+    <script type="module" src="/app.js"></script>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="/" aria-label="Home Reader home">
+        <span class="brand-mark" aria-hidden="true">H</span>
+        <span>Home Reader</span>
+      </a>
+      <p>Turn dense text into something worth listening to.</p>
+    </header>
+
+    <main>
+      <section class="creator" aria-labelledby="create-heading">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">New reading</p>
+            <h1 id="create-heading">Paste. Choose. Listen.</h1>
+          </div>
+          <span class="local-note">Stays on this Mac</span>
+        </div>
+
+        <form id="reading-form">
+          <div class="field-label-row">
+            <label for="source-text">Source text</label>
+            <output id="character-count" for="source-text">0 / 12,000</output>
+          </div>
+          <textarea id="source-text" name="text" rows="10" required aria-describedby="source-help" placeholder="Paste an article, notes, or any text you want explained aloud."></textarea>
+          <p id="source-help" class="help">Up to 12,000 characters. Long documents are not silently shortened or split.</p>
+
+          <fieldset>
+            <legend>How should it read?</legend>
+            <div class="mode-grid">
+              <label class="mode-option">
+                <input type="radio" name="type" value="quick">
+                <span><strong>Quick</strong><small>The main idea and key facts</small></span>
+              </label>
+              <label class="mode-option">
+                <input type="radio" name="type" value="explain" checked>
+                <span><strong>Explain</strong><small>Plain English, with context</small></span>
+              </label>
+              <label class="mode-option">
+                <input type="radio" name="type" value="deep">
+                <span><strong>Deep</strong><small>A detailed walkthrough</small></span>
+              </label>
+            </div>
+          </fieldset>
+
+          <div class="form-footer">
+            <div class="model-field">
+              <label for="model-select">Ollama model</label>
+              <select id="model-select" name="model" required disabled>
+                <option>Loading models…</option>
+              </select>
+            </div>
+            <button id="create-button" class="primary-button" type="submit" disabled>Create reading</button>
+          </div>
+          <div id="form-status" class="status" role="status" aria-live="polite"></div>
+        </form>
+      </section>
+
+      <div class="library-layout">
+        <section class="library" aria-labelledby="library-heading">
+          <div class="library-heading-row">
+            <div>
+              <p class="eyebrow">On this device</p>
+              <h2 id="library-heading">Saved readings</h2>
+            </div>
+            <button id="refresh-button" class="text-button" type="button">Refresh</button>
+          </div>
+          <div id="library-list" class="library-list" aria-live="polite">
+            <p class="empty-state">Loading saved readings…</p>
+          </div>
+        </section>
+
+        <article id="reading-detail" class="reading-detail" aria-labelledby="detail-title">
+          <div id="detail-empty" class="detail-empty">
+            <p class="eyebrow">Reader</p>
+            <h2 id="detail-title">Choose a saved reading</h2>
+            <p>Its script, original source, and audio will appear here.</p>
+          </div>
+          <div id="detail-content" hidden>
+            <div class="detail-heading">
+              <div>
+                <p id="detail-meta" class="eyebrow"></p>
+                <h2 id="selected-title"></h2>
+              </div>
+              <span id="detail-status" class="status-badge"></span>
+            </div>
+            <div id="detail-error" class="error-panel" hidden></div>
+            <div id="audio-panel" class="audio-panel" hidden>
+              <label for="audio-player">Audio</label>
+              <audio id="audio-player" controls preload="metadata"></audio>
+              <div class="audio-actions">
+                <label for="playback-rate">Speed</label>
+                <select id="playback-rate">
+                  <option value="0.75">0.75×</option>
+                  <option value="1" selected>1×</option>
+                  <option value="1.25">1.25×</option>
+                  <option value="1.5">1.5×</option>
+                  <option value="2">2×</option>
+                </select>
+                <a id="audio-download" class="text-link" download>Download audio</a>
+              </div>
+            </div>
+            <section class="script-section" aria-labelledby="script-heading">
+              <div class="content-heading">
+                <h3 id="script-heading">Listening script</h3>
+                <a id="script-download" class="text-link" download>Download</a>
+              </div>
+              <div id="script-text" class="prose"></div>
+            </section>
+            <details class="source-section">
+              <summary>Original source</summary>
+              <div class="content-heading source-download-row">
+                <span>Exactly as saved</span>
+                <a id="source-download" class="text-link" download>Download</a>
+              </div>
+              <pre id="source-text-display"></pre>
+            </details>
+          </div>
+        </article>
+      </div>
+    </main>
+
+    <footer>Local by design. No accounts, analytics, or external services.</footer>
+  </body>
+</html>
